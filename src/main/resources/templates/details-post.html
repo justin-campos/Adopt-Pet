@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <title>Publicaciones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Favicon-->
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous"
+  />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="/css/post.css" rel="stylesheet" />
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand" href="#!">Start Bootstrap</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"
+          >Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"
+          >publicar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"
+          >Administrar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#!">Acerca de nosotros</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+
+      </ul>
+      <form class="d-flex">
+        <button class="btn btn-cloud" type="submit">
+          <i class="bi-cart-fill me-1"></i>
+          Cart
+          <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- Product section-->
+<section class="py-5">
+  <div class="container px-4 px-lg-5 ">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+      <div class="col-md-6">
+        <img
+                class="card-img-top mb-5 mb-md-0 img-fluid fixed-height-img-details"
+                th:src="${mascota.fotos}"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="small mb-1" >
+
+
+          <a th:each="usuario : ${usuarios}" th:href="@{/perfil/{id}(id=${usuario[0].id})}">
+            <i class="bi bi-person-fill" style="color: black;"></i>
+            <span th:text="${usuario[0].name}"></span>
+          </a>
+
+
+        </div>
+        <div th:each="mascota : ${mascotas}">
+          <h1 class="display-5 fw-bolder" th:text="${mascota.nombrePerro}"></h1>
+        </div>
+        <p class="lead" style="font-size: 1.7rem" th:text="${mascota.descripcion}">
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Raza:</span> [[${razaName}]]
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Sexo:</span> [[${mascota.sexo}]]
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Edad:</span> [[${mascota.edad}]]
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Tamaño:</span> [[${mascota.tamano}]]
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Ubicación:</span> [[${mascota.ubicacion}]]
+        </p>
+        <p style="font-size: 1.4rem" >
+          <span class="fw-bold">Vacunas:</span> [[${mascota.vacunasDesparasitaciones}]]
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+  <div class="container px-4 px-lg-5 mt-5">
+    <h2 class="fw-bolder mb-4">Publicaciones Recientes</h2>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <div class="col mb-5" th:each="cuatromascota : ${cuatromascotas}">
+        <div class="card h-100">
+          <!-- Product image-->
+          <img
+                  class="card-img-top img-fluid fixed-height-img"
+                  th:src="${cuatromascota.fotos}"
+          />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product nombre-->
+              <h5 class="fw-bolder" th:text="${cuatromascota.nombrePerro}"></h5>
+              <!-- Product sexo, edad, tamano-->
+              <p th:text="${cuatromascota.sexo + ', ' + cuatromascota.edad + ' años, ' + cuatromascota.tamano}"></p>
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+              <a class="btn btn-outline-dark mt-auto" href="#" th:href="@{/detalle/{id}(id=${cuatromascota.id})}"
+              >Detalles del perro</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">
+      Copyright &copy; Your Website 2023
+    </p>
+  </div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>
